@@ -1,0 +1,90 @@
+@using BookWebApp.Helpers; 
+
+@model BookWebApp.Models.ViewModels.BookIndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Books by category: <i>@Model.SelectedCategory</i> </h2>
+
+<div>
+    <select class="form-control" id="select-categories" name="select-categories">
+        @foreach(var cat in Model.Categories)
+        {
+            var selected = cat == Model.SelectedCategory ? "selected" : "";
+            @Html.Raw("<option " + selected + " value=" + cat.Slug() + ">" + cat + "</option>"); 
+        }
+    </select>
+
+    <script>
+        (function() {
+
+            var catSelect = document.querySelector("#select-categories"); 
+            catSelect.onchange = function() {
+                var value = this.value; 
+                window.location.search = "?category=" + value; 
+            }; 
+
+        })();
+    </script>
+
+</div>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Title 
+            </th>
+            <th>
+                Slug
+            </th>
+            <th>
+                Author
+            </th>
+            <th>
+                Isbn10
+            </th>
+            <th>
+               Isbn13
+            </th>
+            <th>
+               Category
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Books) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Slug)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Isbn10)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Isbn13)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,28 @@
+﻿# CLI Commands 
+
+dotnet restore
+dotnet aspnet-codegenerator controller -name BookController -m Book -dc BookContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+
+
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+
+
+SQLITE GENERATION: 
+
+ CREATE TABLE "Book" (
+          "Id" INTEGER NOT NULL CONSTRAINT "PK_Book" PRIMARY KEY AUTOINCREMENT,
+          "Title" TEXT NULL,
+          "Slug" TEXT NULL,
+          "Author" TEXT NULL,
+          "Publisher" TEXT NULL,
+          "PublishedDate" TEXT NULL,
+          "Description" TEXT NULL,
+          "Isbn10" TEXT NULL,
+          "Isbn13" TEXT NULL,
+          "PageCount" TEXT NULL,
+          "Thumbnail" TEXT NULL,
+          "InfoLink" TEXT NULL,
+          "Language" TEXT NULL,
+          "Category" TEXT NULL
+      );
