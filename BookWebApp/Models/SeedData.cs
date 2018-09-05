@@ -32,7 +32,14 @@ namespace BookWebApp.Models
                 });
 
                 context.SaveChanges(); 
-                */ 
+                */
+
+                var fetchBookService = new FetchBookService(context); 
+
+                foreach(var category in Categories.Get) {
+                    Task.Run(() => fetchBookService.FetchByCategory(category)).GetAwaiter().GetResult(); 
+                }
+
             }
         }
 

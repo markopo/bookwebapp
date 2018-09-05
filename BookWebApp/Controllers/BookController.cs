@@ -21,7 +21,6 @@ namespace BookWebApp.Controllers
         public BookController(BookContext context)
         {
             _context = context;
-            _fetchBookService = new FetchBookService(_context);
         }
 
         // GET: Book
@@ -39,7 +38,6 @@ namespace BookWebApp.Controllers
                 category = defaultCategory;
             }
 
-            await _fetchBookService.FetchByCategory(category);
             var books = await _context.Book.Where(b => b.Category == category).ToListAsync();         
 
             return View(new BookIndexViewModel {
